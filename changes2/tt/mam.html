@@ -1,0 +1,336 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Portal</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teacher's Portal</h1>
+    <button onclick="generateAndSendRandomNumber()">Generate Random Number</button>
+    <p id="random-number"></p>
+    <div id="dataDisplay"></div>
+    <table id="data-table">
+        <thead>
+          <tr>
+            <th>Enrollment Number</th>
+            <th>Altitude</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Table rows will be populated dynamically -->
+        <!-- </tbody>
+      </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+socket.on('connect', () => {
+    console.log('Connected to server');
+});
+let bada_global_object;
+
+socket.on('dataUpdate', (data) => {
+    console.log(data);
+    displayData(data);
+    
+    // bada_global_object = data;
+    // fetchData();
+});
+
+function displayData(data) {
+    // Add dropdown for subject selection
+  const dropdownContainer = document.createElement('div');
+  dropdownContainer.classList.add('dropdown');
+  
+  const dropdownButton = document.createElement('button');
+  dropdownButton.classList.add('dropbtn');
+  dropdownButton.textContent = "Select a Subject";
+  
+  const dropdownContent = document.createElement('div');
+  dropdownContent.classList.add('dropdown-content');
+  
+  const subjects = ["Software Engineering", "Operating System Lecture", "Computer Networks", "Big Data", "Maths"];
+  subjects.forEach(subject => {
+    const subjectLink = document.createElement('a');
+    subjectLink.href = "#";
+    subjectLink.textContent = subject;
+    dropdownContent.appendChild(subjectLink);
+  });
+  
+  dropdownContainer.appendChild(dropdownButton);
+  dropdownContainer.appendChild(dropdownContent);
+  const tableBody = document.getElementById('table-body');
+
+  // Function to check if a string is a 10-digit number
+  function isValidEnrollment(enrollment) {
+    return /^\d{10}$/.test(enrollment);
+  }
+
+  // Check if enrollment number is valid and hasn't been displayed before
+  if (isValidEnrollment(data.enrollment)) {
+    // Check if enrollment already exists in the table
+    const existingEnrollments = Array.from(tableBody.querySelectorAll('tr td:first-child')).map(cell => cell.textContent);
+    if (!existingEnrollments.includes(data.enrollment)) {
+      // Create a new table row
+      const newRow = document.createElement('tr');
+
+      // Create table data cells for enrollment and altitude
+      const enrollmentCell = document.createElement('td');
+      enrollmentCell.textContent = data.enrollment;
+      newRow.appendChild(enrollmentCell);
+
+      const altitudeCell = document.createElement('td');
+      altitudeCell.textContent = data.altitude;
+      newRow.appendChild(altitudeCell);
+
+      // Append the new row to the table body
+      tableBody.appendChild(newRow);
+    }
+  }
+}
+
+
+        function generateAndSendRandomNumber() {
+            // Generate a random number
+            const randomNumber = Math.floor(Math.random() * 1000);
+
+            // Display the random number on the HTML page
+            document.getElementById('random-number').innerText = `Random Number: ${randomNumber}`;
+
+            // Now, you can send this number to the backend using an HTTP request
+            sendRandomNumberToBackend(randomNumber);
+        }
+        function sendRandomNumberToBackend(randomNumber) {
+            // Use fetch or another method to send the random number to the backend
+            fetch('/api/random', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ randomNumber }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send random number to the backend');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from backend:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+
+    <script>
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/home/teacher');
+                const data = await response.json();
+
+                // Clear the existing table body
+                const tableBody = document.getElementById('data-table-body');
+                tableBody.innerHTML = '';
+
+                // Create a new row for each entry in the data
+                data.forEach(entry => {
+                    const row = document.createElement('tr');
+                    const enrollmentCell = document.createElement('td');
+                    enrollmentCell.textContent = entry.enrollment;
+                    const latitudeCell = document.createElement('td');
+                    latitudeCell.textContent = entry.latitude;
+
+                    // Append cells to the row
+                    row.appendChild(enrollmentCell);
+                    row.appendChild(latitudeCell);
+
+                    // Append the row to the table body
+                    tableBody.appendChild(row);
+                });
+                console.log(bada_global_object);
+            } catch (error) {
+                console.error('Error fetching real-time data:', error);
+            }
+        };
+
+        // Fetch and display real-time data on page load
+        const initialFetch = async () => {
+            fetchData();
+        };
+
+        initialFetch();
+
+        // Optionally, you can set up a periodic refresh
+        setInterval(fetchData, 2000); // Refresh every 5 seconds
+    </script>
+</body>
+</html> --> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50; /* Cool background color */
+            color: #fff; /* Text color */
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #34495e; /* Container background color */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #3498db; /* Button background color */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease; /* Smooth transition effect */
+        }
+        button:hover {
+            background-color: #2980b9; /* Darker shade on hover */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: ##000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Portal</h1>
+        <button id="sendLocationButton">Generate Random Number</button>
+        <p id="random-number"></p>
+        <div id="dataDisplay"></div>
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Enrollment Number</th>
+                    <th>Altitude</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Table rows will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socket.on('dataUpdate', (data) => {
+            console.log(data);
+            displayData(data);
+        });
+
+        function displayData(data) {
+            const tableBody = document.getElementById('table-body');
+
+            // Function to check if a string is a 10-digit number
+            function isValidEnrollment(enrollment) {
+                return /^\d{10}$/.test(enrollment);
+            }
+
+            // Check if enrollment number is valid and hasn't been displayed before
+            if (isValidEnrollment(data.enrollment)) {
+                // Check if enrollment already exists in the table
+                const existingEnrollments = Array.from(tableBody.querySelectorAll('tr td:first-child')).map(cell => cell.textContent);
+                if (!existingEnrollments.includes(data.enrollment)) {
+                    // Create a new table row
+                    const newRow = document.createElement('tr');
+
+                    // Create table data cells for enrollment and altitude
+                    const enrollmentCell = document.createElement('td');
+                    enrollmentCell.textContent = data.enrollment;
+                    newRow.appendChild(enrollmentCell);
+
+                    const altitudeCell = document.createElement('td');
+                    altitudeCell.textContent = data.altitude;
+                    newRow.appendChild(altitudeCell);
+
+                    // Append the new row to the table body
+                    tableBody.appendChild(newRow);
+                }
+            }
+        }
+
+        function sendRandomNumberToBackend(randomNumber) {
+            fetch('/api/random', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ randomNumber }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send random number to the backend');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from backend:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.getElementById('sendLocationButton').addEventListener('click', function () {
+            generateAndSendRandomNumber();
+        });
+
+        function generateAndSendRandomNumber() {
+            const randomNumber = Math.floor(Math.random() * 1000);
+            document.getElementById('random-number').innerText = `Random Number: ${randomNumber}`;
+            sendRandomNumberToBackend(randomNumber);
+        }
+    </script>
+</body>
+</html>
+
